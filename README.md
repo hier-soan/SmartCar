@@ -1,8 +1,13 @@
 # SmartCar
 The 16th National Intelligent Car Competition for College Students in 2021
 第十六届全国大学生智能车竞赛双车接力组华南赛区三等奖（翻车组）。
+
+两车合影：
+![IMG20210720160959](https://user-images.githubusercontent.com/85218852/161702646-f4ba830b-bec0-4e30-870d-8052b88e4c7b.jpg)
+
+
   直立车（改过三次结构，最后一次的结构还算比较满意）
-  姿态检测用的是ICM20602+互补滤波
+  姿态检测用的是ICM20602+互补滤波，
   控制用的是速度环增量式（外环）、角度环位置式（内环）、角速度串级pid，个人感觉比并级更稳点，但也更难调出好的参数
   
   第一次结构：机械零点最好的一次，但是考虑到能不能上坡道的问题，只能放弃
@@ -15,6 +20,7 @@ The 16th National Intelligent Car Competition for College Students in 2021
   第三次结构：把传球考虑进来后，同时把重心调低了
   ![IMG20210720161828](https://user-images.githubusercontent.com/85218852/161699879-d0419d1c-2899-4e38-84f7-a6ee7f7eb022.jpg)
 
+  
   
   三轮（改过三次，但是感觉越改越烂，重心越改越往前）
   原本改之前在锐角弯后轮弯时不会飘的，改之后就会飘了
