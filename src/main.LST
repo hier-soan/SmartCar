@@ -1,0 +1,55 @@
+C51 COMPILER V9.01   MAIN                                                                  12/09/2021 10:02:27 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <AT89X51.h>
+   2          
+   3          #define uchar unsigned char
+   4          #define uint  unsigned int
+   5          
+   6          /*********舵机部分*********/
+   7          sbit trig = P1^3;
+   8          sbit echo = P1^2;
+   9          sbit servoPwm = P1^6;
+  10          
+  11          /*********电机部分*********/
+  12          sbit leftIN1 = P0^0;
+  13          sbit leftIN2 = P0^1;
+  14          sbit rightIN3 = P0^2;
+  15          sbit rightIN4 = P0^3;
+  16          sbit leftEN = P0^4;
+  17          sbit rightEN = P0^5;
+  18          
+  19          /*********循迹部分********/
+  20          sbit leftOne = P2^0;
+  21          sbit leftTwo = P2^1;
+  22          sbit leftThree = P2^2;
+  23          sbit leftFour = P2^3;
+  24          sbit rightOne = P2^4;
+  25          sbit rightTwo = P2^5;
+  26          sbit rightThree = P2^6;
+  27          sbit rightFour = P2^7;
+  28          
+  29          
+  30          /*********其他部分********/
+  31          sbit buzzer = P0^6;
+  32          
+  33          /*********定时器1初始化********/
+  34          void pit1Tnterrupt() interrupt 3{
+  35   1              TH1 = 0xff;
+  36   1              TL1 = 0xa3;
+  37   1      
+  38   1      }
+  39          
+  40          /********主函数********/
+  41          void main (void){
+  42   1      
+  43   1      )
+*** ERROR C141 IN LINE 43 OF MAIN.C: syntax error near ')'
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  1 ERROR(S)

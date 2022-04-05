@@ -1,0 +1,59 @@
+C51 COMPILER V9.01   SERVO                                                                 12/25/2021 20:03:03 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE SERVO
+OBJECT MODULE PLACED IN servo.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE src\servo.c BROWSE INCDIR(.\src;.\src) DEBUG OBJECTEXTEND PRINT(.\servo.lst
+                    -) OBJECT(servo.obj)
+
+line level    source
+
+   1          #include "servo.h"
+   2          
+   3          
+   4          
+   5          
+   6          int angleSet;                   //设定目标舵机转动角度
+   7          extern int error;
+   8          
+   9          //取绝对值
+  10          void abs(int i){
+  11   1              if (i < 0){
+  12   2                      i = -i;
+  13   2              }else{
+  14   2                      i = i;
+  15   2              }
+  16   1      }
+  17          
+  18          /*----------------------误差循迹-----------------------
+  19                  @令angleSet∈[6,24]，即角度范围为[9,171]
+  20                           angleSet = 3*error+15;
+  21                  @令angleSet∈[9,21]，即角度范围为[36,144]
+  22                           angleSet = 2*error+15;
+  23          -----------------------------------------------------*/
+  24          int kp = 0;
+  25          int kd = 0;
+  26          int nowError = 4;
+  27          int lastError = 2;
+  28          void findRoad(void){
+  29   1              angleSet = 12; //3*error+
+  30   1              //模仿简易PID
+  31   1              nowError = error;
+  32   1      //      angleSet = kp*nowError + kd*abs((nowError-lastError));
+  33   1              lastError = nowError;
+  34   1      }
+  35          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     29    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     10    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

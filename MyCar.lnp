@@ -1,0 +1,8 @@
+"STARTUP.obj",
+"main.obj",
+"motor.obj",
+"isr.obj",
+"servo.obj",
+"AD.obj" 
+TO "MyCar" 
+RAMSIZE(256) 

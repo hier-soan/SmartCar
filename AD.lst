@@ -1,0 +1,215 @@
+C51 COMPILER V9.01   AD                                                                    12/25/2021 20:03:03 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE AD
+OBJECT MODULE PLACED IN AD.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE src\AD.c BROWSE INCDIR(.\src;.\src) DEBUG OBJECTEXTEND PRINT(.\AD.lst) OBJE
+                    -CT(AD.obj)
+
+line level    source
+
+   1          #include "AD.h"
+   2          
+   3          /*--------------—” ±1ms--------------------*/
+   4          void delay_ms(unsigned int ms){
+   5   1              unsigned int i;
+   6   1              unsigned char j;
+   7   1              for(i=0;i<ms;i++){
+   8   2                      for(j=0;j<200;j++);
+   9   2                              for(j=0;j<102;j++);
+  10   2              }
+  11   1      }
+  12          
+  13          /*-------------- ˝æ›≤…ºØ≥Ã–Ú-----------------*/
+  14          int nowPosition = 0;
+  15          int lastPosition = 0;
+  16          
+  17          void dataAcquire(void){
+  18   1              lastPosition = nowPosition;
+  19   1      
+  20   1              if (leftOne == 0){
+  21   2                      nowPosition = 0;
+  22   2              }else if(leftTwo == 0){
+  23   2                      nowPosition = -1;
+  24   2              }else if(leftThree == 0){
+  25   2                      nowPosition = -2;
+  26   2              }else if(leftFour == 0){
+  27   2                      nowPosition = -3;
+  28   2              }else if(rightOne == 0){
+  29   2                      nowPosition = 0;
+  30   2              }else if(rightTwo == 0){
+  31   2                      nowPosition = 1;
+  32   2              }else if(rightThree == 0){
+  33   2                      nowPosition = 2;
+  34   2              }else if(rightFour == 0){
+  35   2                      nowPosition = 3;
+  36   2              }       
+  37   1      }
+  38          
+  39          /*---------------∑µªÿ‘À∂Ø◊¥Ã¨----------------*/
+  40          int returnStatus(){
+  41   1              if (nowPosition == 0){
+  42   2                      return 0;       
+  43   2              }else if(nowPosition > 0){
+  44   2                      return 0;
+  45   2              }else if(nowPosition < 0){
+  46   2                      return 0;
+  47   2              }else{
+  48   2                      return 1;
+  49   2              }
+  50   1      }
+  51          
+  52          
+  53          /*--------------ŒÛ≤Ó ‰≥ˆ≥Ã–Ú-----------------*/
+  54          int errorOut(int nowPosition){
+C51 COMPILER V9.01   AD                                                                    12/25/2021 20:03:03 PAGE 2   
+
+  55   1              int error = 0;
+  56   1              error = nowPosition - MIDDLELINE;
+  57   1              return error;
+  58   1      }
+  59          
+  60          void ElementJudgement(void){
+  61   1              if ((leftOne == 1 || rightOne == 1) && (leftTwo || leftThree || leftFour || rightTwo || rightThree || rig
+             -htFour == 1)){
+  62   2                      
+  63   2              }
+  64   1      }
+  65          
+  66          
+  67          /*----------------------»¸µ¿‘™Àÿ¥¶¿Ì-----------------------
+  68                  @inIslandFlag           ‘≤ª∑±Í÷æŒª
+  69                          0                               ’˝≥£»¸µ¿±Í÷æŒª
+  70                          1                               ºÏ≤‚µΩ‘≤ª∑œ¬∞Î‘≤£¨◊º±∏Ω¯ª∑±Í÷æŒª
+  71                          2                               ºÏ≤‚µΩ‘≤ª∑…œ∞Î‘≤£¨ø™ ºΩ¯ª∑±Í÷æŒª
+  72                          3                               ª∑ƒ⁄—≠º£±Í÷æŒª
+  73                          4                               ºÏ≤‚µΩ≥ˆª∑Ãÿ’˜£¨ø™ º≥ˆª∑±Í÷æŒª
+  74                          5                               “—æ≠≥ˆª∑±Í÷æŒª
+  75                  
+  76                  @leftIslandFlag         ◊Û‘≤ª∑±Í÷æŒª
+  77                  @rightIslandFlag        ”“‘≤ª∑±Í÷æŒª
+  78                  @littleAngleFlag        »ÒΩ«±Í÷æŒª
+  79          ----------------------------------------------------------*/
+  80          
+  81          int inIslandFlag = 0;
+  82          int leftIslandFlag = 0;
+  83          int rightIslandFlag = 0;
+  84          int littleAngleFlag = 0;
+  85          
+  86          void islandJudgment(void){
+  87   1              if (inIslandFlag == 0){  //Œ¥ºÏ≤‚µΩ‘≤ª∑
+  88   2                      if ((leftOne == 0 || rightOne == 0) && (leftTwo  == 0|| leftThree  == 0|| leftFour == 0)){      //»Áπ˚÷–º‰ºÏ≤
+             -‚µΩ∫⁄œﬂµƒÕ¨ ±£ª
+  89   3                              leftIslandFlag = 1;                                                                                                                             //◊Û±ﬂ»˝∂Œ“≤ºÏ≤‚µΩ∫⁄œﬂ£¨‘Ú≈–∂®Œ™◊Û‘≤ª∑
+  90   3                              inIslandFlag = 1;
+  91   3                      }else if ((leftOne == 0 || rightOne == 0) && (rightTwo  == 0|| rightThree  == 0|| rightFour == 0)){             //”
+             -Î…œºÏ≤‚◊Û‘≤ª∑Õ¨¿Ì
+  92   3                              rightIslandFlag = 1;
+  93   3                              inIslandFlag = 1;
+  94   3                      }
+  95   2              }else if (inIslandFlag == 1){
+  96   2                      delay_ms(1000);                 //—” ±“ª∂Œ ±º‰£¨”√”⁄≈–∂œ‘≤ª∑µƒœ¬“ª∂Œª°£¨»Ù”–‘Ú «‘≤ª∑£¨ø™ ºΩ¯ª∑£ª»ÙŒﬁ£¨‘Ú≈–∂œŒ™»ÒΩ«
+  97   2                      if ((leftOne == 0 || rightOne == 0) && ((leftTwo  == 0|| leftThree  == 0|| leftFour == 0)
+  98   2                              ||(rightTwo  == 0|| rightThree  == 0|| rightFour == 0))){
+  99   3                              inIslandFlag = 2;        //‘≤ª∑µ⁄∂˛Ω◊∂Œ£¨ø™ º»Îª∑
+ 100   3                      }else{
+ 101   3                              littleAngleFlag = 1;     //√ª≈–∂œµΩœ¬“ª∂Œª°£¨≈–∂œŒ™»ÒΩ«
+ 102   3                              inIslandFlag = 0;
+ 103   3                      }
+ 104   2              }else if (inIslandFlag ==2){
+ 105   2                      delay_ms(1000);                 //—” ±“ª∂Œ ±º‰£¨ π÷ÆÕÍ»´Ω¯»Î‘≤ª∑∫Û£¨Ω¯»ÎΩ◊∂Œ»˝
+ 106   2                      inIslandFlag = 3;
+ 107   2              }else if (inIslandFlag == 3){
+ 108   2                      if (leftIslandFlag == 1){
+ 109   3                              if ((leftOne == 0 || rightOne == 0) && (rightTwo  == 0|| rightThree  == 0|| rightFour == 0)){           //◊Ûª∑£∫
+             -»Áπ˚÷–º‰ºÏ≤‚µΩ∫⁄œﬂµƒÕ¨ ±£ª
+ 110   4                                      inIslandFlag = 4;                                                                                                                               //”“±ﬂ»˝∂Œ“≤ºÏ≤‚µΩ∫⁄œﬂ£¨‘Ú≈–∂œŒ™◊º±∏≥ˆª∑
+ 111   4                              }
+ 112   3                      }else if (rightIslandFlag == 1){
+C51 COMPILER V9.01   AD                                                                    12/25/2021 20:03:03 PAGE 3   
+
+ 113   3                              if ((leftOne == 0 || rightOne == 0) && (leftTwo  == 0|| leftThree  == 0|| leftFour == 0)){              //”Î…œºÏ≤‚≥
+             -ˆ◊Ûª∑Õ¨¿Ì
+ 114   4                                      inIslandFlag = 4;
+ 115   4                              }
+ 116   3                      }
+ 117   2              }else if (inIslandFlag == 4){
+ 118   2                      delay_ms(1000);                 //—” ±“ª∂Œ ±º‰£¨»√∆‰≥ˆª∑÷Æ∫ÛΩ¯»ÎΩ◊∂ŒŒÂ
+ 119   2                      inIslandFlag = 5;
+ 120   2              }else if (inIslandFlag == 5){
+ 121   2                      delay_ms(1000);                 //—” ±“ª∂Œ ±º‰£¨±£÷§≥ˆª∑“ª∂®æ‡¿Î∫Û«Â≥˝±Í÷æŒª£¨◊º±∏÷Æ∫Ûµƒ‘≤ª∑
+ 122   2                      inIslandFlag = 0;
+ 123   2                      leftIslandFlag = 0;
+ 124   2                      rightIslandFlag = 0;
+ 125   2              }
+ 126   1      }
+ 127          
+ 128          
+ 129          int error = 0;          //øÿ÷∆∂Êª˙µƒŒÛ≤Ó–≈∫≈
+ 130          void islandControl(void){
+ 131   1              if (inIslandFlag == 1){ //ºÏ≤‚µΩ‘≤ª∑±Í÷æ£¨◊º±∏»Îª∑
+ 132   2                      error = 0;                      //÷±––
+ 133   2              }else if (inIslandFlag == 2){
+ 134   2                      if (leftIslandFlag == 1){
+ 135   3                              error = -1;             //»Îª∑«ø÷∆◊Û¥ÚΩ«
+ 136   3                      }else if (rightIslandFlag == 1){
+ 137   3                              error = 1;              //»Îª∑«ø÷∆”“¥ÚΩ«
+ 138   3                      }
+ 139   2              }else if (inIslandFlag == 3){
+ 140   2                      error = errorOut;       //ª∑ƒ⁄’˝≥£—≠º£
+ 141   2              }else if (inIslandFlag == 4){
+ 142   2                      if (leftIslandFlag == 1){
+ 143   3                              error = -1;             //≥ˆª∑«ø÷∆◊Û¥ÚΩ«
+ 144   3                      }else if (rightIslandFlag == 1){
+ 145   3                              error = 1;              //≥ˆª∑«ø÷∆”“¥ÚΩ«
+ 146   3                      }
+ 147   2              }else if (inIslandFlag == 5){
+ 148   2                      error = 0;                      //≥ˆª∑∫Û±£≥÷÷±––
+ 149   2              }else if (inIslandFlag == 0){
+ 150   2                      error = errorOut;       //∆‰À˚«Èøˆ±£≥÷’˝≥£÷±––
+ 151   2              }
+ 152   1      }
+ 153          
+ 154          /*------------»ÒΩ«≈–∂œ---------------*/
+ 155          void littleAngleJudgment(void){
+ 156   1              if(littleAngleFlag == 1){
+ 157   2                      delay_ms(1000);   
+ 158   2                      littleAngleFlag = 0;
+ 159   2              }
+ 160   1      }
+ 161          
+ 162          /*------------»ÒΩ«øÿ÷∆---------------*/
+ 163          void littleAngleControl(void){
+ 164   1              if (littleAngleFlag == 1 && leftIslandFlag == 1){
+ 165   2                      error = -3;
+ 166   2              }else if (littleAngleFlag == 1 && rightIslandFlag == 1){
+ 167   2                      error = 3;
+ 168   2              }
+ 169   1      }
+ 170          
+ 171          /*------------◊‹øÿ÷∆-----------------*/
+ 172          void allControl(void){
+ 173   1              dataAcquire();
+C51 COMPILER V9.01   AD                                                                    12/25/2021 20:03:03 PAGE 4   
+
+ 174   1              error = errorOut() ;
+*** WARNING C209 IN LINE 174 OF SRC\AD.C: '_errorOut': too few actual parameters
+ 175   1              //islandJudgment();
+ 176   1              /*littleAngleJudgment();
+ 177   1              islandControl();
+ 178   1              littleAngleJudgment();  */
+ 179   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    577    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     14    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
